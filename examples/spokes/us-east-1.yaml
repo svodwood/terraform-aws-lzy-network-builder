@@ -1,0 +1,34 @@
+# US East 1 Example Network Definitions for Your Teams
+# VPCs to be deployed in us-east-1 region
+
+pub-ui-vpc:
+  account: 123456789102
+  type: public
+  cidr: 10.0.0.0/16
+  public_endpoints_size: 24
+  availability_zone_ids:
+    - use1-az1
+  risk: low
+  subnets:
+    web-frontend: 27
+    api-backend: 24
+  tags:
+    Environment: Development
+    CostCenter: WebDev
+
+dwh-vpc:
+  account: 123456789103
+  type: public
+  cidr: 10.100.0.0/20
+  public_endpoints_size: 28
+  availability_zone_ids:
+    - use1-az1
+    - use1-az2
+  risk: high
+  subnets:
+    etl: 24
+    nosql: 26
+    sql: 26
+  tags:
+    Environment: Production
+    CostCenter: DBA

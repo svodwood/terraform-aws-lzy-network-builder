@@ -1,0 +1,84 @@
+# Example Regional Network Security VPC Configuration for us-east-1 - one hub per region.
+# This VPC provides centralized egress, inspection, and inter-VPC connectivity.
+
+netsec-use1:
+  cidr: "100.64.0.0/20"
+  availability_zone_ids: 
+    - "use1-az1"
+    - "use1-az2"
+  
+  # User-defined subnets only - technical subnets (firewall, egress, relay, shared_endpoints) are automatically created
+  subnets:
+    # Add any user-defined subnet types here
+    mgmt: 28
+  
+  # VPC Interface Endpoints - shared across all spoke VPCs for cost optimization
+  vpc_endpoints:
+    ec2:
+      # # Example: explicit IAM policy (defaults to deny-all policy if not specified)
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": "*"
+            }
+          ]
+        }
+    s3:
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": "*"
+            }
+          ]
+        }
+    ssm:
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": "*"
+            }
+          ]
+        }
+    ssmmessages:
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": "*"
+            }
+          ]
+        }
+    ec2messages:
+      policy: |
+        {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": "*"
+            }
+          ]
+        }
+  tags:
+    CostCenter: "NetSec"
